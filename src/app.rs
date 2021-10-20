@@ -16,7 +16,18 @@ pub fn new() -> App<'static> {
 		.long("raw")
 		.short_alias('b');
 
+	let precision = Arg::new("precision")
+		.about("Floating point precision used while displaying.")
+		.short('p')
+		.long("precision")
+		.default_value("2")
+		.validator(|s| {
+			s.parse::<usize>()
+				.map(|_| {})
+				.map_err(|_| String::from("the value must be a non-negative integer"))
+		});
+
 	let input = Arg::new("input").value_name("N").multiple_values(true);
 
-	app.arg(raw).arg(input)
+	app.arg(raw).arg(precision).arg(input)
 }

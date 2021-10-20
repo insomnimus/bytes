@@ -10,6 +10,7 @@ use atty::Stream;
 
 fn run() -> Result<(), &'static str> {
 	let m = app::new().get_matches();
+	bytes::set_precision(m.value_of("precision").unwrap().parse().unwrap());
 	let raw = m.is_present("raw");
 	if !atty::is(Stream::Stdin) {
 		let stdin = io::stdin();

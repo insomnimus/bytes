@@ -1,4 +1,10 @@
-use std::fmt;
+use std::{
+	fmt,
+	sync::atomic::{
+		AtomicUsize,
+		Ordering,
+	},
+};
 
 use anyhow::{
 	anyhow,
@@ -18,6 +24,12 @@ pub const TB: Unit = 1000000000000;
 pub const TIB: Unit = 1024 * 1024 * 1024 * 1024;
 pub const PB: Unit = 1000000000000000;
 pub const PIB: Unit = 1024 * 1024 * 1024 * 1024 * 1024;
+
+static PRECISION: AtomicUsize = AtomicUsize::new(2);
+
+pub fn set_precision(n: usize) {
+	PRECISION.store(n, Ordering::Relaxed);
+}
 
 #[inline]
 fn unit_str(n: Unit) -> &'static str {
@@ -100,6 +112,12 @@ impl fmt::Display for Pretty {
 		};
 
 		let val = n as f64 / unit as f64;
-		write!(f, "{}{}", val, unit_str(unit))
+		write!(
+			f,
+			"{n:.precision$}{unit}",
+			n = val,
+			precision = PRECISION.load(Ordering::Relaxed),
+			unit = unit_str(unit)
+		)
 	}
 }

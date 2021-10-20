@@ -1,7 +1,7 @@
 [package]
 name = "bytes"
 description = "Pretty print byte values."
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Taylan Gökkaya <insomnimus.dev@gmail.com>"]
 edition = "2018"
 license = "MIT"
