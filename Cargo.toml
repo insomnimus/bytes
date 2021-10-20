@@ -1,9 +1,15 @@
 [package]
-name = "pretty"
+name = "bytes"
+description = "Pretty print byte values."
 version = "0.1.0"
-edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Taylan Gökkaya <insomnimus.dev@gmail.com>"]
+edition = "2018"
+license = "MIT"
+readme = "readme.md"
+keywords = ["pretty", "cli", "format"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 anyhow = "1.0.44"
+atty = "0.2.14"
+clap = "3.0.0-beta.5"
